@@ -49,6 +49,15 @@ namespace Faker.Test
             new(typeof(nuint))
         };
 
+        [OneTimeSetUp]
+        public void Setup()
+        {
+            // Assembly.LoadFile(@"C:\Users\maxiemar\RiderProjects\objects-creation-tracer" +
+            //                   @"\StringGenerator\bin\Debug\net5.0\StringGenerator.dll");
+            // Assembly.LoadFile(@"C:\Users\maxiemar\RiderProjects\objects-creation-tracer" +
+            //                   @"\DoubleGenerator\bin\Debug\net5.0\DoubleGenerator.dll");
+        }
+
         [Test]
         [TestCaseSource(nameof(s_availableTypes))]
         public void Faker_Create_AvailableTypes_DoesNotThrow(Type type)
@@ -183,6 +192,18 @@ namespace Faker.Test
         public void Faker_Create_WithDeepCyclicDependency_Throws()
         {
             Assert.Throws<CyclicDependencyException>(() => _faker.Create<A14>());
+        }
+
+        [Test]
+        public void Faker_Create_GenericList_DoesNotThrow()
+        {
+            Assert.DoesNotThrow(() => _faker.Create<List<string>>());
+        }
+        
+        [Test]
+        public void Faker_Create_GenericList_Of_GenericLists_DoesNotThrow()
+        {
+            Assert.DoesNotThrow(() => _faker.Create<List<List<string>>>());
         }
         
         private MethodInfo MakeGenericMethodCreate(Type type)
