@@ -43,7 +43,7 @@ namespace Faker.Generator.Test
             var random = new Random();
             var faker = new Core.Faker();
             var generatorContext = new GeneratorContext(expectedType, random, faker);
-            
+
             object value = generator.Generate(generatorContext);
             Assert.AreEqual(expectedType, value.GetType());
         }

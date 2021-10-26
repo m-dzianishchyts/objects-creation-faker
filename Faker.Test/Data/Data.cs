@@ -113,36 +113,36 @@ namespace Faker.Test.Data
 
     public class A8
     {
-        private B8 privateField;
-        protected B8 protectedField;
         internal B8 internalField;
-        protected internal B8 protectedInternalField;
+        private B8 privateField;
         private protected B8 privateProtectedField;
+        protected B8 protectedField;
+        protected internal B8 protectedInternalField;
 
         [MethodImpl(MethodImplOptions.NoOptimization)]
         public bool IsPrivateFieldInitialized()
         {
             return privateField is null;
         }
-        
+
         [MethodImpl(MethodImplOptions.NoOptimization)]
         public bool IsProtectedFieldInitialized()
         {
             return protectedField is null;
         }
-        
+
         [MethodImpl(MethodImplOptions.NoOptimization)]
         public bool IsInternalFieldInitialized()
         {
             return internalField is null;
         }
-        
+
         [MethodImpl(MethodImplOptions.NoOptimization)]
         public bool IsProtectedInternalFieldInitialized()
         {
             return protectedInternalField is null;
         }
-        
+
         [MethodImpl(MethodImplOptions.NoOptimization)]
         public bool IsPrivateProtectedFieldInitialized()
         {
@@ -157,7 +157,7 @@ namespace Faker.Test.Data
     #endregion
 
     #region Faker ignores non-public properties
-    
+
     public class A9
     {
         private B9? PrivateProperty { get; set; }
@@ -171,25 +171,25 @@ namespace Faker.Test.Data
         {
             return PrivateProperty is null;
         }
-        
+
         [MethodImpl(MethodImplOptions.NoOptimization)]
         public bool IsProtectedPropertyInitialized()
         {
             return ProtectedProperty is null;
         }
-        
+
         [MethodImpl(MethodImplOptions.NoOptimization)]
         public bool IsInternalPropertyInitialized()
         {
             return InternalProperty is null;
         }
-        
+
         [MethodImpl(MethodImplOptions.NoOptimization)]
         public bool IsProtectedInternalPropertyInitialized()
         {
             return ProtectedInternalProperty is null;
         }
-        
+
         [MethodImpl(MethodImplOptions.NoOptimization)]
         public bool IsPrivateProtectedPropertyInitialized()
         {
@@ -241,7 +241,7 @@ namespace Faker.Test.Data
     }
 
     #endregion
-    
+
     #region Faker fails on deep cyclic dependency
 
     public class A14

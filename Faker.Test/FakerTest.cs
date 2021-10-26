@@ -13,6 +13,16 @@ namespace Faker.Test
     [TestFixture]
     public class FakerTest
     {
+        [OneTimeSetUp]
+        public void Setup()
+        {
+            Assembly.LoadFile(@"C:\Users\maxiemar\RiderProjects\objects-creation-faker" +
+                              @"\Faker.Generator.StringGenerator\bin\Debug\net5.0\Faker.Generator.StringGenerator.dll");
+            Assembly.LoadFile(@"C:\Users\maxiemar\RiderProjects\objects-creation-faker" +
+                              @"\Faker.Generator.DateTimeGenerator\bin\Debug\net5.0\Faker.Generator.DateTimeGenerator.dll");
+            _faker = new Core.Faker();
+        }
+
         private IFaker _faker = null!;
 
         private static TestCaseData[] s_availableTypes =
@@ -43,16 +53,6 @@ namespace Faker.Test
             new(typeof(nint)),
             new(typeof(nuint))
         };
-
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            Assembly.LoadFile(@"C:\Users\maxiemar\RiderProjects\objects-creation-faker" +
-                              @"\Faker.Generator.StringGenerator\bin\Debug\net5.0\Faker.Generator.StringGenerator.dll");
-            Assembly.LoadFile(@"C:\Users\maxiemar\RiderProjects\objects-creation-faker" +
-                              @"\Faker.Generator.DateTimeGenerator\bin\Debug\net5.0\Faker.Generator.DateTimeGenerator.dll");
-            _faker = new Core.Faker();
-        }
 
         [Test]
         [TestCaseSource(nameof(s_availableTypes))]
