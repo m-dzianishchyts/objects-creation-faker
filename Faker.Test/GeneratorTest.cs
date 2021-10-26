@@ -26,6 +26,7 @@ namespace Faker.Test
 
             new(new StringGenerator(), typeof(string)),
             new(new DateTimeGenerator(), typeof(DateTime)),
+            new(new ListGenerator(), typeof(List<string>))
         };
 
         [Test]
