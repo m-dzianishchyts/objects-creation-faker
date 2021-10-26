@@ -86,7 +86,13 @@ namespace Faker.Core
                 return newObject;
             }
 
-            throw new NoEffectiveConstructorException(currentCreatingType);
+            if (!currentCreatingType.IsValueType)
+            {
+                throw new NoEffectiveConstructorException(currentCreatingType);
+            }
+
+            object value = Activator.CreateInstance(currentCreatingType)!;
+            return value;
         }
 
         private object InitializeViaConstructor(ConstructorInfo constructor)
