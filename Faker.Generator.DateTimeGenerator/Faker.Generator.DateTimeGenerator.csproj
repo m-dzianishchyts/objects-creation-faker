@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Faker.Core\Faker.Core.csproj" />
+        <ProjectReference Include="..\Faker.Core\Faker.Core.csproj"/>
     </ItemGroup>
 
 </Project>

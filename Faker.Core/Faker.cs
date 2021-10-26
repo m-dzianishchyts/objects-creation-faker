@@ -25,8 +25,9 @@ namespace Faker.Core
         private static readonly IComparer<ConstructorInfo> ConstructorParametersAmountComparer =
             new ConstructorParametersAmountComparer();
 
-        private readonly List<IGenerator> _generators;
         private readonly ISet<Type> _creatingTypes;
+
+        private readonly List<IGenerator> _generators;
 
         public Faker()
         {
@@ -43,7 +44,7 @@ namespace Faker.Core
         }
 
         /// <summary>
-        /// Generates value of type T. 
+        /// Generates value of type T.
         /// </summary>
         /// <typeparam name="T">Class or value type</typeparam>
         /// <returns>Mostly initialized value of type T</returns>
@@ -91,9 +92,7 @@ namespace Faker.Core
             }
 
             if (!currentCreatingType.IsValueType)
-            {
                 throw new NoEffectiveConstructorException(currentCreatingType);
-            }
 
             object value = Activator.CreateInstance(currentCreatingType)!;
             return value;
@@ -154,9 +153,7 @@ namespace Faker.Core
         {
             IEnumerable<Type> cycleCauses = propertyTypes.Intersect(_creatingTypes).ToList();
             if (!cycleCauses.Any())
-            {
                 return;
-            }
 
             Type cycleCause = cycleCauses.First();
             List<Type> cyclicPath = _creatingTypes.Append(cycleCause).ToList();

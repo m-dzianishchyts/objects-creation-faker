@@ -21,7 +21,7 @@ namespace Faker.Core.Generator
             var randomValue = new decimal(decimalLow, decimalMid, decimalHigh, decimalSign, decimalScale);
             return randomValue;
         }
-        
+
         private static int GenerateInt32(Random random)
         {
             Span<byte> randomBytes = stackalloc byte[sizeof(int)];
@@ -29,7 +29,7 @@ namespace Faker.Core.Generator
             var randomValue = BitConverter.ToInt32(randomBytes);
             return randomValue;
         }
-        
+
         private static bool GenerateBool(Random random)
         {
             double randomDouble = random.NextDouble();
