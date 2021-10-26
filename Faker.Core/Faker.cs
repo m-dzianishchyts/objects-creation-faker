@@ -62,12 +62,16 @@ namespace Faker.Core
 
         private object Create(Type type)
         {
+            object newObject;
+            var random = new Random();
             foreach (IGenerator generator in _generators.Where(generator => generator.CanGenerate(type)))
             {
-                return generator.Generate(new GeneratorContext(new Random(), this));
+                var generatorContext = new GeneratorContext(type, random, this);
+                newObject = generator.Generate(generatorContext);
+                return newObject;
             }
 
-            object newObject = InitializeViaAnyConstructor(type);
+            newObject = InitializeViaAnyConstructor(type);
             InitializeFields(newObject);
             InitializeProperties(newObject);
             return newObject;
