@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Faker.Core.Generator;
 using NUnit.Framework;
 
@@ -7,8 +8,6 @@ namespace Faker.Test
     [TestFixture]
     public class GeneratorTest
     {
-        private GeneratorContext _generatorContext;
-
         private static TestCaseData[] s_generatorTestData =
         {
             new(new BoolGenerator(), typeof(bool)),
@@ -29,12 +28,6 @@ namespace Faker.Test
             new(new DateTimeGenerator(), typeof(DateTime)),
         };
 
-        [OneTimeSetUp]
-        public void BoolGenerator_SetUp()
-        {
-            _generatorContext = new GeneratorContext(new Random(), new Core.Faker());
-        }
-
         [Test]
         [TestCaseSource(nameof(s_generatorTestData))]
         public void Generator_CanGenerate_ExpectedType(IGenerator generator, Type expectedType)
@@ -46,7 +39,11 @@ namespace Faker.Test
         [TestCaseSource(nameof(s_generatorTestData))]
         public void Generator_Generates_ExpectedType(IGenerator generator, Type expectedType)
         {
-            object value = generator.Generate(_generatorContext);
+            var random = new Random();
+            var faker = new Core.Faker();
+            var generatorContext = new GeneratorContext(expectedType, random, faker);
+            
+            object value = generator.Generate(generatorContext);
             Assert.AreEqual(expectedType, value.GetType());
         }
     }
