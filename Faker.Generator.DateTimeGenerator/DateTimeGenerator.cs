@@ -1,6 +1,7 @@
 ﻿using System;
+using Faker.Core.Generator;
 
-namespace Faker.Core.Generator
+namespace Faker.Generator.DateTimeGenerator
 {
     public class DateTimeGenerator : IGenerator
     {
@@ -20,7 +21,7 @@ namespace Faker.Core.Generator
 
         private static long GenerateInt64(Random random)
         {
-            byte[] buffer = new byte[sizeof(long)];
+            var buffer = new byte[sizeof(long)];
             random.NextBytes(buffer);
             var randomValue = BitConverter.ToInt64(buffer);
             return randomValue;

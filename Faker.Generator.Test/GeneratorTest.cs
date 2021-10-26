@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Faker.Core.Generator;
 using NUnit.Framework;
 
-namespace Faker.Test
+namespace Faker.Generator.Test
 {
     [TestFixture]
     public class GeneratorTest
@@ -24,8 +24,8 @@ namespace Faker.Test
             new(new Int16Generator(), typeof(short)),
             new(new UInt16Generator(), typeof(ushort)),
 
-            new(new StringGenerator(), typeof(string)),
-            new(new DateTimeGenerator(), typeof(DateTime)),
+            new(new StringGenerator.StringGenerator(), typeof(string)),
+            new(new DateTimeGenerator.DateTimeGenerator(), typeof(DateTime)),
             new(new ListGenerator(), typeof(List<string>))
         };
 

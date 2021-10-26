@@ -13,12 +13,7 @@ namespace Faker.Test
     [TestFixture]
     public class FakerTest
     {
-        private readonly IFaker _faker;
-
-        public FakerTest()
-        {
-            _faker = new Core.Faker();
-        }
+        private IFaker _faker = null!;
 
         private static TestCaseData[] s_availableTypes =
         {
@@ -52,10 +47,11 @@ namespace Faker.Test
         [OneTimeSetUp]
         public void Setup()
         {
-            // Assembly.LoadFile(@"C:\Users\maxiemar\RiderProjects\objects-creation-tracer" +
-            //                   @"\StringGenerator\bin\Debug\net5.0\StringGenerator.dll");
-            // Assembly.LoadFile(@"C:\Users\maxiemar\RiderProjects\objects-creation-tracer" +
-            //                   @"\DoubleGenerator\bin\Debug\net5.0\DoubleGenerator.dll");
+            Assembly.LoadFile(@"C:\Users\maxiemar\RiderProjects\objects-creation-faker" +
+                              @"\Faker.Generator.StringGenerator\bin\Debug\net5.0\Faker.Generator.StringGenerator.dll");
+            Assembly.LoadFile(@"C:\Users\maxiemar\RiderProjects\objects-creation-faker" +
+                              @"\Faker.Generator.DateTimeGenerator\bin\Debug\net5.0\Faker.Generator.DateTimeGenerator.dll");
+            _faker = new Core.Faker();
         }
 
         [Test]
@@ -79,10 +75,8 @@ namespace Faker.Test
         public void Faker_Create_UnavailableTypes_Throw(Type type)
         {
             MethodInfo genericMethodCreate = MakeGenericMethodCreate(type);
-            Assert.Throws(Is.InstanceOf(typeof(ApplicationException)), () =>
-            {
-                genericMethodCreate.Invoke(_faker, Array.Empty<object>());
-            });
+            Assert.Throws(Is.InstanceOf(typeof(ApplicationException)),
+                          () => { genericMethodCreate.Invoke(_faker, Array.Empty<object>()); });
         }
 
         [Test]
@@ -90,7 +84,7 @@ namespace Faker.Test
         {
             Assert.DoesNotThrow(() => _faker.Create<A1>());
         }
-        
+
         [Test]
         public void Faker_Create_Class_NotNull()
         {
@@ -102,7 +96,7 @@ namespace Faker.Test
         public void Faker_Prefers_Constructor_WithLargerNumberOfParams()
         {
             A2 obj = _faker.Create<A2>();
-            Assert.AreEqual(A2.ONE_PARAMETER_CONSTRUCTOR_FIELD_VALUE ,obj.field);
+            Assert.AreEqual(A2.ONE_PARAMETER_CONSTRUCTOR_FIELD_VALUE, obj.field);
         }
 
         [Test]
@@ -149,7 +143,7 @@ namespace Faker.Test
             Assert.IsTrue(obj.IsProtectedInternalFieldInitialized());
             Assert.IsTrue(obj.IsPrivateProtectedFieldInitialized());
         }
-        
+
         [Test]
         public void Faker_Ignores_NonPublicProperties()
         {
@@ -187,7 +181,7 @@ namespace Faker.Test
         {
             Assert.Throws<CyclicDependencyException>(() => _faker.Create<A13>());
         }
-        
+
         [Test]
         public void Faker_Create_WithDeepCyclicDependency_Throws()
         {
@@ -199,13 +193,13 @@ namespace Faker.Test
         {
             Assert.DoesNotThrow(() => _faker.Create<List<string>>());
         }
-        
+
         [Test]
         public void Faker_Create_GenericList_Of_GenericLists_DoesNotThrow()
         {
             Assert.DoesNotThrow(() => _faker.Create<List<List<string>>>());
         }
-        
+
         private MethodInfo MakeGenericMethodCreate(Type type)
         {
             MethodInfo methodCreate = _faker.GetType().GetMethod(nameof(Core.Faker.Create))!;

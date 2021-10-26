@@ -1,7 +1,7 @@
 ﻿using System;
 using Faker.Core.Generator;
 
-namespace Faker.Core.Generator
+namespace Faker.Generator.StringGenerator
 {
     public class StringGenerator : IGenerator
     {
@@ -13,7 +13,7 @@ namespace Faker.Core.Generator
         public object Generate(GeneratorContext context)
         {
             var stringLength = (byte) context.Random.Next();
-            byte[] randomBytes = new byte[stringLength * sizeof(char)];
+            var randomBytes = new byte[stringLength * sizeof(char)];
             context.Random.NextBytes(randomBytes);
             var randomValue = BitConverter.ToString(randomBytes);
             return randomValue;
