@@ -6,5 +6,10 @@
             : base(message)
         {
         }
+        
+        public FakerException(string? message, System.Exception? cause)
+            : base(message, cause)
+        {
+        }
     }
 }

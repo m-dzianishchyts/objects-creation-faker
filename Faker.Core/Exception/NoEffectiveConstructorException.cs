@@ -7,5 +7,9 @@ namespace Faker.Core.Exception
         public NoEffectiveConstructorException(Type type) : base(type.AssemblyQualifiedName)
         {
         }
+        
+        public NoEffectiveConstructorException(Type type, System.Exception? cause) : base(type.AssemblyQualifiedName, cause)
+        {
+        }
     }
 }

@@ -49,9 +49,7 @@ namespace Faker.Test
         private static TestCaseData[] s_unavailableTypes =
         {
             new(typeof(BigInteger)),
-            new(typeof(Uri)),
-            new(typeof(nint)),
-            new(typeof(nuint))
+            new(typeof(Uri))
         };
 
         [Test]
@@ -179,13 +177,13 @@ namespace Faker.Test
         [Test]
         public void Faker_Create_WithShallowCyclicDependency_Throws()
         {
-            Assert.Throws<CyclicDependencyException>(() => _faker.Create<A13>());
+            Assert.Throws(Is.InstanceOf(typeof(FakerException)), () => _faker.Create<A13>());
         }
 
         [Test]
         public void Faker_Create_WithDeepCyclicDependency_Throws()
         {
-            Assert.Throws<CyclicDependencyException>(() => _faker.Create<A14>());
+            Assert.Throws(Is.InstanceOf(typeof(FakerException)), () => _faker.Create<A14>());
         }
 
         [Test]
