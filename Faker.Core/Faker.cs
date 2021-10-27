@@ -85,7 +85,7 @@ namespace Faker.Core
                 currentCreatingType.GetConstructors(CONSTRUCTORS_BINDING_FLAGS)
                                    .OrderByDescending(constructor => constructor, ConstructorAccessModComparer)
                                    .ThenByDescending(constructor => constructor, ConstructorParametersAmountComparer);
-            System.Exception? lastException = null;
+            IList<System.Exception> exceptionsOnConstructors = new List<System.Exception>();
             foreach (var constructor in constructors)
             {
                 try
@@ -95,12 +95,13 @@ namespace Faker.Core
                 }
                 catch (CyclicDependencyException e)
                 {
-                    lastException = e;
+                    exceptionsOnConstructors.Add(e);
                 }
             }
 
             if (!currentCreatingType.IsValueType)
-                throw new NoEffectiveConstructorException(currentCreatingType, lastException);
+                throw new NoEffectiveConstructorException(currentCreatingType,
+                                                          new AggregateException(exceptionsOnConstructors));
 
             object value = Activator.CreateInstance(currentCreatingType)!;
             return value;
