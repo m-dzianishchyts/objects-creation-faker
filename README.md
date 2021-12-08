@@ -70,3 +70,10 @@ class C
                            // может быть на любом уровне вложенности
 }
 ```
+
+### Работы по курсу
+* [Method Execution Tracer](https://github.com/maxiemar/method-execution-tracer)
+* [Objects Creation Faker](https://github.com/maxiemar/objects-creation-faker)
+* [Assembly Browser](https://github.com/maxiemar/assembly-browser)
+* [NUnit Test Generator](https://github.com/maxiemar/nunit-test-generator)
+* [Dependency Injection Container](https://github.com/maxiemar/dependency-injection-container)
